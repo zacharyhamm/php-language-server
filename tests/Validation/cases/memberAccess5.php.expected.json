@@ -60,9 +60,9 @@
                 },
                 "containerName": "MyNamespace\\ParseErrorsTest"
             },
-            "type__tostring": "mixed",
+            "type__tostring": "void",
             "type": {},
-            "declarationLine": "public function setUp()",
+            "declarationLine": "public function setUp(): void",
             "documentation": null,
             "signatureInformation": {
                 "label": "()",

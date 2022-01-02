@@ -35,7 +35,7 @@ class CompletionTest extends TestCase
      */
     private $loader;
 
-    public function setUp()
+    public function setUp(): void
     {
         $client = new LanguageClient(new MockProtocolStream, new MockProtocolStream);
         $projectIndex = new ProjectIndex(new Index, new DependenciesIndex);
@@ -835,10 +835,19 @@ class CompletionTest extends TestCase
         ], true), $items);
     }
 
+    private function completionItemToString(CompletionItem $item): string
+    {
+        return "{$item->detail} {$item->label} {$item->documentation}";
+    }
+
     private function assertCompletionsListSubset(CompletionList $subsetList, CompletionList $list)
     {
         foreach ($subsetList->items as $expectedItem) {
-            $this->assertContains($expectedItem, $list->items, null, null, false);
+                $this->assertContains(
+                        $this->completionItemToString($expectedItem),
+                        array_map(fn ($item) => $this->completionItemToString($item), $list->items),
+                        "Completion list should contain {$expectedItem->label}"
+                );
         }
 
         $this->assertEquals($subsetList->isIncomplete, $list->isIncomplete);

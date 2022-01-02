@@ -4,7 +4,7 @@ namespace MyNamespace;
 
 class ParseErrorsTest {
 
-    public function setUp()
+    public function setUp(): void
     {
         $a = new class($this->args) { };
     }
